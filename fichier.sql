@@ -1,3 +1,4 @@
+/*Pour ouvrir mySQL faire un sudo mySQL*/
 oem@oem-Latitude-E5430-non-vPro:~$ sudo mysql
 [sudo] Mot de passe de oem :
 Welcome to the MySQL monitor.  Commands end with ; or \g.
@@ -12,7 +13,7 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-/*Début partie 1*/
+/*----------------------------------------------Début partie 1------------------------------------------------*/
 mysql> CREATE DATABASE languages;
 Query OK, 1 row affected (0.01 sec)
 
@@ -32,7 +33,7 @@ mysql> DROP DATABASE IF EXISTS languages;
 Query OK, 0 rows affected (0.04 sec)
 
 mysql> DROP DATABASE IF EXISTS frameworks;
-Query OK, 0 rows affected (0.00 sec)----------------------------------
+Query OK, 0 rows affected (0.00 sec)
 
 mysql> DROP DATABASE IF EXISTS languages;
 Query OK, 0 rows affected, 1 warning (0.00 sec)
@@ -49,7 +50,9 @@ Database changed
 /*Dans la base de données webDevelopment, créer la table languages avec les colonnes :
 
     id (type INT, auto-incrémenté, clé primaire)
-    language (type VARCHAR)
+    language (type VARCHAR) maximum d'un VARCHAR 8000
+
+    le primary key permet de créer des valeurs unique
 */
 mysql> CREATE TABLE tools (id int primary key auto_increment, tool varchar(50));
 Query OK, 0 rows affected (0.93 sec)
@@ -60,7 +63,9 @@ Query OK, 0 rows affected (0.93 sec)
     id (type INT, auto-incrémenté, clé primaire)
     tool (type VARCHAR)
 */
-mysql> use webDevelopment                                             Database changed
+mysql> use webDevelopment
+Database changed
+
 mysql> CREATE TABLE frameworks (id int primary key auto_increment, name varchar(50));
 Query OK, 0 rows affected (0.42 sec)
 
@@ -70,7 +75,9 @@ Query OK, 0 rows affected (0.42 sec)
     id (type INT, auto-incrémenté, clé primaire)
     library (type VARCHAR)
 */
-mysql> use webDevelopment                                             Database changed
+mysql> use webDevelopment
+Database changed
+
 mysql> CREATE TABLE libraries (id int primary key auto_increment, library varchar(50));
 Query OK, 0 rows affected (0.74 sec)
 
@@ -80,7 +87,9 @@ Query OK, 0 rows affected (0.74 sec)
     id (type INT, auto-incrémenté, clé primaire)
     ideName (type VARCHAR)
 */
-mysql> use webDevelopment                                             Database changed
+mysql> use webDevelopment
+Database changed
+
 mysql> CREATE TABLE ide (id int primary key auto_increment, ideName varchar(50));
 Query OK, 0 rows affected (0.48 sec)
 
@@ -131,7 +140,9 @@ mysql> CREATE TABLE clients (id int primary key auto_increment, lastname varchar
 Query OK, 0 rows affected (0.57 sec)
 
 mysql> SHOW TABLES 'codex';
-mysql> use codex                                                      Database changed
+mysql> use codex
+Database changed
+
 mysql> SHOW TABLES;
 +-----------------+
 | Tables_in_codex |
@@ -244,7 +255,8 @@ Query OK, 0 rows affected (0.87 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
 /*Vérification que la colonne version à changé de nombre de CHARACTER*/
-mysql> DESCRIBE `frameworks`;                                         +-----------+-------------+------+-----+---------+----------------+
+mysql> DESCRIBE `frameworks`;
++-----------+-------------+------+-----+---------+----------------+
 | Field     | Type        | Null | Key | Default | Extra          |
 +-----------+-------------+------+-----+---------+----------------+
 | id        | int(11)     | NO   | PRI | NULL    | auto_increment |
@@ -273,7 +285,7 @@ mysql> ALTER TABLE `clients` CHANGE `firstPhoneNumber` `phoneNumber` int;
 Query OK, 0 rows affected (0.15 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
-mysql> ALTER TABLE `clients` CHANGE `phoneNumber` `phoneNumber` varchar(50);
+mysql> ALTER TABLE `clients` MODIFY `phoneNumber` `phoneNumber` varchar(50);
 Query OK, 0 rows affected (0.98 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
@@ -285,7 +297,8 @@ mysql> ALTER TABLE `clients` ADD COLUMN `city` varchar(50);
 Query OK, 0 rows affected (0.79 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
-mysql> DESCRIBE `clients`;                                            +-------------+-------------+------+-----+---------+----------------+
+mysql> DESCRIBE `clients`;
++-------------+-------------+------+-----+---------+----------------+
 | Field       | Type        | Null | Key | Default | Extra          |
 +-------------+-------------+------+-----+---------+----------------+
 | id          | int(11)     | NO   | PRI | NULL    | auto_increment |
@@ -299,3 +312,523 @@ mysql> DESCRIBE `clients`;                                            +---------
 | city        | varchar(50) | YES  |     | NULL    |                |
 +-------------+-------------+------+-----+---------+----------------+
 9 rows in set (0.00 sec)
+/*-------------------------------------------------Fin Partie 3 --------------------------------------------------*/
+
+/*-----------------------------------------------Début Partie 4 -------------------------------------------------*/
+/*rentrer dans la base de donnée webDevelopment*/
+mysql> use webDevelopment
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+
+/*inserer dans le tableau languages les valeurs suivantes pour les colonnes (id,language,versions)*/
+mysql> INSERT INTO `languages` VALUES (1,'JavaScript','5');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO `languages` VALUES (2,'PHP','5.2');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO `languages` VALUES (3,'PHP','5.4');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO `languages` VALUES (4,'HTML','5.1');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO `languages` VALUES (5,'JavaScript','6');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO `languages` VALUES (6,'JavaScript','7');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO `languages` VALUES (7,'JavaScript','8');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO `languages` VALUES (8,'PHP','7');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> DESCRIBE `languages`;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| language | varchar(50) | YES  |     | NULL    |                |
+| versions | int(11)     | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+/*Commande pour voir les différentes valeurs inserer dans les colonnes*/
+mysql> SELECT * FROM `languages`;
++----+------------+----------+
+| id | language   | versions |
++----+------------+----------+
+|  1 | JavaScript | 5        |
+|  2 | PHP        | 5.2      |
+|  3 | PHP        | 5.4      |
+|  4 | HTML       | 5.1      |
+|  5 | JavaScript | 6        |
+|  6 | JavaScript | 7        |
+|  7 | JavaScript | 8        |
+|  8 | PHP        | 7        |
++----+------------+----------+
+8 rows in set (0.00 sec)
+
+/*inserer dans le tableau frameworks les valeurs suivantes pour les colonnes (id,framework,version)*/
+mysql> INSERT INTO `frameworks` VALUES ('1','Symfony','2.8');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO `frameworks` VALUES ('2','Symfony','3');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO `frameworks` VALUES ('3','Jquery','1.6');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO `frameworks` VALUES ('4','Jquery','2.10');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * FROM `frameworks`;
++----+-----------+---------+
+| id | framework | version |
++----+-----------+---------+
+|  1 | Symfony   | 2.8     |
+|  2 | Symfony   | 3       |
+|  3 | Jquery    | 1.6     |
+|  4 | Jquery    | 2.10    |
++----+-----------+---------+
+4 rows in set (0.00 sec)
+
+/*Supprimer du tableau languages la ligne ayant l'id 1 */
+mysql> DELETE FROM `languages` WHERE `id`=1;
+Query OK, 1 row affected (0.05 sec)
+
+/*---------------------------------------------------Fin Partie 4 ------------------------------------------*/
+
+/*-------------------------------------------------Début Partie 5 -----------------------------------------*/
+
+/*Dans la table languages, afficher toutes les données de la table.*/
+mysql> SELECT * FROM `languages`;
++----+------------+----------+
+| id | language   | versions |
++----+------------+----------+
+|  1 | JavaScript | 5        |
+|  2 | PHP        | 5.2      |
+|  3 | PHP        | 5.4      |
+|  4 | HTML       | 5.1      |
+|  5 | JavaScript | 6        |
+|  6 | JavaScript | 7        |
+|  7 | JavaScript | 8        |
+|  8 | PHP        | 7        |
++----+------------+----------+
+8 rows in set (0.00 sec)
+
+/*Dans la table languages, afficher toutes les versions de PHP.*/
+mysql> SELECT `language`
+    -> FROM `languages`
+    -> WHERE `language`='PHP';
++----------+
+| language |
++----------+
+| PHP      |
+| PHP      |
+| PHP      |
++----------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT `versions` FROM `languages` WHERE `language`='PHP';
++----------+
+| versions |
++----------+
+| 5.2      |
+| 5.4      |
+| 7        |
++----------+
+3 rows in set (0.00 sec)
+
+
+mysql> SELECT * FROM `languages` WHERE `language`='PHP';
++----+----------+----------+
+| id | language | versions |
++----+----------+----------+
+|  2 | PHP      | 5.2      |
+|  3 | PHP      | 5.4      |
+|  8 | PHP      | 7        |
++----+----------+----------+
+3 rows in set (0.00 sec)
+
+/*Dans la table languages, afficher toutes les versions de PHP et de JavaScript.*/
+mysql> SELECT * FROM `languages` WHERE `language`='PHP' || `language`='JavaScript' ;
++----+------------+----------+
+| id | language   | versions |
++----+------------+----------+
+|  1 | JavaScript | 5        |
+|  2 | PHP        | 5.2      |
+|  3 | PHP        | 5.4      |
+|  5 | JavaScript | 6        |
+|  6 | JavaScript | 7        |
+|  7 | JavaScript | 8        |
+|  8 | PHP        | 7        |
++----+------------+----------+
+7 rows in set (0.00 sec)
+
+/*Dans la table languages, afficher toutes les lignes ayant pour id 3,5,7.*/
+mysql> SELECT * FROM `languages` WHERE `id`=3 || `id`=5 || `id`=7 ;
++----+------------+----------+
+| id | language   | versions |
++----+------------+----------+
+|  3 | PHP        | 5.4      |
+|  5 | JavaScript | 6        |
+|  7 | JavaScript | 8        |
++----+------------+----------+
+3 rows in set (0.00 sec)
+
+/*Dans la table languages,afficher les deux première entrées de JavaScript.*/
+mysql> SELECT * FROM `languages` WHERE `language`='JavaScript' LIMIT 2;
++----+------------+----------+
+| id | language   | versions |
++----+------------+----------+
+|  1 | JavaScript | 5        |
+|  5 | JavaScript | 6        |
++----+------------+----------+
+2 rows in set (0.00 sec)
+
+/*Dans la table languages, afficher toutes les lignes qui ne sont pas du PHP*/
+mysql> SELECT * FROM `languages` WHERE `language` <> 'PHP';
++----+------------+----------+
+| id | language   | versions |
++----+------------+----------+
+|  1 | JavaScript | 5        |
+|  4 | HTML       | 5.1      |
+|  5 | JavaScript | 6        |
+|  6 | JavaScript | 7        |
+|  7 | JavaScript | 8        |
++----+------------+----------+
+5 rows in set (0.00 sec)
+
+/*Dans la table languages,afficher toutes les données par ordre alphabétique.
+SELECT * FROM `languages`ORDER BY DESC `language`; pour l'inverse de l'ordre alphabetique*/
+mysql> SELECT * FROM `languages` ORDER BY `language`;
++----+------------+----------+
+| id | language   | versions |
++----+------------+----------+
+|  4 | HTML       | 5.1      |
+|  1 | JavaScript | 5        |
+|  5 | JavaScript | 6        |
+|  6 | JavaScript | 7        |
+|  7 | JavaScript | 8        |
+|  2 | PHP        | 5.2      |
+|  3 | PHP        | 5.4      |
+|  8 | PHP        | 7        |
++----+------------+----------+
+8 rows in set (0.00 sec)
+
+/*------------------------------------------------------Fin Partie 5 ----------------------------------------- */
+
+/*----------------------------------------------------Début Partie 6 -----------------------------------------*/
+
+/*Pour ouvrir un fichier mySQL sauvegarder sur l'ordinateur et pouvoir s'en servir il faut donner le chemin du fichier*/
+mysql> source /home/oem/mySQL/ajout.sql
+Query OK, 0 rows affected (0.34 sec)
+
+Query OK, 1 row affected (0.05 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.08 sec)
+
+Query OK, 1 row affected (0.09 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+/*Dans la table frameworks, afficher toutes les données de la table ayant une version 2.x (x étant un numéro quelconque).*/
+mysql> SELECT * FROM `frameworks` WHERE `version` < 3 && `version` >2;
+/* aussi possible (le pourcentage représente la recherche floue)*/
+mysql> SELECT * FROM `frameworks` WHERE `version` LIKE '2.%';
++----+-----------+---------+
+| id | framework | version |
++----+-----------+---------+
+|  1 | Symfony   | 2.8     |
+|  4 | Jquery    | 2.10    |
++----+-----------+---------+
+2 rows in set (0.00 sec)
+
+/*Dans la table frameworks, afficher toutes les lignes ayant pour id 1 et 3.*/
+mysql> SELECT * FROM `frameworks` WHERE `id`=1 || `id`=3;
++----+-----------+---------+
+| id | framework | version |
++----+-----------+---------+
+|  1 | Symfony   | 2.8     |
+|  3 | Jquery    | 1.6     |
++----+-----------+---------+
+2 rows in set (0.00 sec)
+
+/*Dans la table ide, afficher toutes les lignes ayant une date comprise entre le premier janvier 2010 et le 31 decembre 2011.*/
+mysql> SELECT * FROM `ide` WHERE `date` <= '2011-12-31' && `date` >= '2010-01-01';
++----+----------+---------+------------+
+| id | name     | version | date       |
++----+----------+---------+------------+
+|  3 | Eclipse  | 3.6     | 2010-06-01 |
+|  4 | Eclipse  | 3.7     | 2011-06-01 |
+|  6 | NetBeans | 7       | 2011-04-01 |
++----+----------+---------+------------+
+3 rows in set (0.00 sec)
+
+/*--------------------------------------------------Fin Partie 6 ------------------------------------------*/
+
+/*------------------------------------------------Début Partie 7 -----------------------------------------*/
+
+mysql> use webDevelopment
+Database changed
+
+/*Dans la table languages, supprimer toutes les lignes parlant de HTML.*/
+mysql> DELETE FROM `languages`
+    -> WHERE `language`='HTML';
+Query OK, 1 row affected (0.07 sec)
+
+mysql> SELECT * FROM `languages`;
++----+------------+----------+
+| id | language   | versions |
++----+------------+----------+
+|  1 | JavaScript | 5        |
+|  2 | PHP        | 5.2      |
+|  3 | PHP        | 5.4      |
+|  5 | JavaScript | 6        |
+|  6 | JavaScript | 7        |
+|  7 | JavaScript | 8        |
+|  8 | PHP        | 7        |
++----+------------+----------+
+7 rows in set (0.00 sec)
+
+/*Dans la table frameworks, modifier toutes les lignes ayant le framework Symfony par Symfony2.*/
+mysql> UPDATE frameworks
+    -> SET framework='Symfony 2'
+    -> WHERE framework='Symfony';
+Query OK, 2 rows affected (0.13 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM frameworks;
++----+-----------+---------+
+| id | framework | version |
++----+-----------+---------+
+|  1 | Symfony 2 | 2.8     |
+|  2 | Symfony 2 | 3       |
+|  3 | Jquery    | 1.6     |
+|  4 | Jquery    | 2.10    |
++----+-----------+---------+
+4 rows in set (0.00 sec)
+
+/*Dans la table languages, modifier la ligne du langage JavaScript version 5 par la version 5.1*/
+mysql> UPDATE `languages` SET `language`='JavaScript', `versions`='5.1' WHERE `versions`='5';
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM `languages`;
+| id | language   | versions |
++----+------------+----------+
+|  1 | JavaScript | 5.1      |
+|  2 | PHP        | 5.2      |
+|  3 | PHP        | 5.4      |
+|  5 | JavaScript | 6        |
+|  6 | JavaScript | 7        |
+|  7 | JavaScript | 8        |
+|  8 | PHP        | 7        |
++----+------------+----------+
+7 rows in set (0.00 sec)
+
+/*-----------------------------------------------------------Fin Partie 7-------------------------------------*/
+
+/*-------------------------------------------------Début Partie 8----------------------------------------------*/
+
+mysql> source /home/oem/mySQL/bdd.sql
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+
+mysql> SELECT * FROM `languages`;
++----+------------+
+| id | name       |
++----+------------+
+|  1 | Assembleur |
+|  2 | C          |
+|  3 | C++        |
+|  4 | Java       |
+|  5 | HTML       |
+|  6 | CSS        |
+|  7 | JavaScript |
+|  8 | PHP        |
+|  9 | C#         |
+| 10 | VB         |
+| 11 | Python     |
+| 12 | Ruby       |
+| 13 | Swift      |
++----+------------+
+13 rows in set (0.15 sec)
+
+mysql> SELECT * FROM `frameworks`;
++----+---------------+-------------+
+| id | name          | languagesId |
++----+---------------+-------------+
+|  1 | Qt            |           3 |
+|  2 | SDK Android   |           4 |
+|  3 | Bootstrap     |           6 |
+|  4 | Foundation    |           6 |
+|  5 | KNACSS        |           6 |
+|  6 | Avalanche     |           6 |
+|  7 | Miligram      |           6 |
+|  8 | Skeleton      |           6 |
+|  9 | Hoisin        |           6 |
+| 10 | Inuit         |           6 |
+| 11 | Mimic         |           6 |
+| 12 | Ministrap     |           6 |
+| 13 | Lotus         |           6 |
+| 14 | Jquery        |           7 |
+| 15 | Angular       |           7 |
+| 16 | ReactJS       |           7 |
+| 17 | Vue.js        |           7 |
+| 18 | Ember.js      |           7 |
+| 19 | Meteor.js     |           7 |
+| 20 | Laravel       |           8 |
+| 21 | Symfony       |           8 |
+| 22 | CodeIgniter   |           8 |
+| 23 | Yii           |           8 |
+| 24 | Phalcon       |           8 |
+| 25 | Lumen         |           8 |
+| 26 | Silex         |           8 |
+| 27 | Slim          |           8 |
+| 28 | .NET          |           9 |
+| 29 | .NET          |          10 |
+| 30 | Django        |          11 |
+| 31 | Ruby On Rails |          12 |
++----+---------------+-------------+
+31 rows in set (0.01 sec)
+
+
+/*Afficher tous les frameworks associés à leurs langages. Si un langage n'a pas de framework l'afficher aussi.*/
+mysql> SELECT languages.name,frameworks.name FROM `languages` LEFT JOIN `frameworks` ON languages.id = frameworks.languagesId;
++------------+---------------+
+| name       | name          |
++------------+---------------+
+| C++        | Qt            |
+| Java       | SDK Android   |
+| CSS        | Bootstrap     |
+| CSS        | Foundation    |
+| CSS        | KNACSS        |
+| CSS        | Avalanche     |
+| CSS        | Miligram      |
+| CSS        | Skeleton      |
+| CSS        | Hoisin        |
+| CSS        | Inuit         |
+| CSS        | Mimic         |
+| CSS        | Ministrap     |
+| CSS        | Lotus         |
+| JavaScript | Jquery        |
+| JavaScript | Angular       |
+| JavaScript | ReactJS       |
+| JavaScript | Vue.js        |
+| JavaScript | Ember.js      |
+| JavaScript | Meteor.js     |
+| PHP        | Laravel       |
+| PHP        | Symfony       |
+| PHP        | CodeIgniter   |
+| PHP        | Yii           |
+| PHP        | Phalcon       |
+| PHP        | Lumen         |
+| PHP        | Silex         |
+| PHP        | Slim          |
+| C#         | .NET          |
+| VB         | .NET          |
+| Python     | Django        |
+| Ruby       | Ruby On Rails |
+| Assembleur | NULL          |
+| C          | NULL          |
+| HTML       | NULL          |
+| Swift      | NULL          |
++------------+---------------+
+35 rows in set (0.00 sec)
+
+/*Afficher tous les frameworks associés à leurs langages. Si un langage n'a pas de framework ne pas l'afficher.*/
+mysql> SELECT languages.name,frameworks.name FROM `languages` INNER JOIN `frameworks` ON languages.id = frameworks.languagesId;
++------------+---------------+
+| name       | name          |
++------------+---------------+
+| C++        | Qt            |
+| Java       | SDK Android   |
+| CSS        | Bootstrap     |
+| CSS        | Foundation    |
+| CSS        | KNACSS        |
+| CSS        | Avalanche     |
+| CSS        | Miligram      |
+| CSS        | Skeleton      |
+| CSS        | Hoisin        |
+| CSS        | Inuit         |
+| CSS        | Mimic         |
+| CSS        | Ministrap     |
+| CSS        | Lotus         |
+| JavaScript | Jquery        |
+| JavaScript | Angular       |
+| JavaScript | ReactJS       |
+| JavaScript | Vue.js        |
+| JavaScript | Ember.js      |
+| JavaScript | Meteor.js     |
+| PHP        | Laravel       |
+| PHP        | Symfony       |
+| PHP        | CodeIgniter   |
+| PHP        | Yii           |
+| PHP        | Phalcon       |
+| PHP        | Lumen         |
+| PHP        | Silex         |
+| PHP        | Slim          |
+| C#         | .NET          |
+| VB         | .NET          |
+| Python     | Django        |
+| Ruby       | Ruby On Rails |
++------------+---------------+
+31 rows in set (0.03 sec)
+
+/*Afficher le nombre de framework qu'a un langage.*/
+mysql> SELECT languages.name, COUNT(frameworks.name) FROM languages LEFT JOIN frameworks ON languages.id = frameworks.languagesId GROUP BY languages.name;
++------------+------------------------+
+| name       | COUNT(frameworks.name) |
++------------+------------------------+
+| Assembleur |                      0 |
+| C          |                      0 |
+| C#         |                      1 |
+| C++        |                      1 |
+| CSS        |                     11 |
+| HTML       |                      0 |
+| Java       |                      1 |
+| JavaScript |                      6 |
+| PHP        |                      8 |
+| Python     |                      1 |
+| Ruby       |                      1 |
+| Swift      |                      0 |
+| VB         |                      1 |
++------------+------------------------+
+13 rows in set (0.13 sec)
+
+/*Afficher les langages ayant plus de 3 frameworks.*/
+mysql> SELECT languages.name, COUNT(frameworks.name) FROM languages LEFT JOIN frameworks ON languages.id = frameworks.languagesId GROUP BY languages.name HAVING COUNT(frameworks.name) > 3;
++------------+------------------------+
+| name       | COUNT(frameworks.name) |
++------------+------------------------+
+| CSS        |                     11 |
+| JavaScript |                      6 |
+| PHP        |                      8 |
++------------+------------------------+
+3 rows in set (0.02 sec)
+
+mysql> SELECT languages.name, COUNT(frameworks.name) AS `number` FROM languages LEFT JOIN frameworks ON languages.id = frameworks.languagesId GROUP BY languages.name HAVING `number` > 3;
++------------+--------+
+| name       | number |
++------------+--------+
+| CSS        |     11 |
+| JavaScript |      6 |
+| PHP        |      8 |
++------------+--------+
+3 rows in set (0.00 sec)
